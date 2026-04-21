@@ -1,1 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+# Load CSV file
+data = pd.read_csv("data.csv")
+
+print("Dataset:\n", data)
+
+# Basic Analysis
+print("\nAverage Marks:")
+print(data[['Maths', 'Science', 'English']].mean())
+
+print("\nMaximum Marks:")
+print(data[['Maths', 'Science', 'English']].max())
+
+# Bar Chart
+data.set_index('Name')[['Maths', 'Science', 'English']].plot(kind='bar')
+plt.title("Marks Comparison (Bar Chart)")
+plt.ylabel("Marks")
+plt.show()
+
+# Scatter Plot
+plt.scatter(data['Maths'], data['Science'])
+plt.xlabel("Maths Marks")
+plt.ylabel("Science Marks")
+plt.title("Maths vs Science (Scatter Plot)")
+plt.show()
+
+# Heatmap
+corr = data[['Maths', 'Science', 'English']].corr()
+sns.heatmap(corr, annot=True, cmap='coolwarm')
+plt.title("Correlation Heatmap")
+plt.show()
+
+# Insights
+print("\nInsights:")
+print("1. Highest average marks subject:", data[['Maths','Science','English']].mean().idxmax())
+print("2. Student with highest Maths marks:", data.loc[data['Maths'].idxmax(), 'Name'])
